@@ -3,7 +3,7 @@ var config = require('./config/index')
 var app = express()
 app.use(express.static('./dist'))
 
-var port = 3001
+var port = 3002
 
 module.exports = app.listen(port, function (err) {
   if (err) {
