@@ -2,6 +2,19 @@
   <div class="container">
     <ui-header></ui-header>
     <div class="content-wrap">
+      <div class="search-wrap">
+        <div class="search-bar">
+          <i class="iconfont search-icon">&#xe651;</i>
+          <input class="search-input" type="text" placeholder="搜索歌曲、歌单、专辑">
+        </div>
+        <div class="search-cancel">取消</div>
+      </div>
+      <div class="hot-search">
+        <h3 class="hot-title">热门搜索</h3>
+        <div class="hot-tag-wrap">
+          <a v-for="(item, index) in hotList" :key="index" href="" class="hot-tag">{{item.first}}</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,26 +29,16 @@ export default {
   },
   data () {
     return {
-      radioList: [],
       hotList: []
     }
   },
   mounted () {
+    this.initHot()
   },
   methods: {
-    initRadio () {
-      getData('/api/personalized/djprogram').then(res => {
-        this.radioList = res.result.splice(0, 2)
-        console.log(this.radioList)
-      })
-    },
     initHot () {
-      getData('/api/top/playlist?order=hot&limit=6').then(res => {
-        this.hotList = res.playlists
-        this.hotList.forEach(v => {
-          const p = v.playCount
-          v.playNum = p > 9999 ? `${(p / 10000).toFixed(1)}万` : p
-        })
+      getData('/api/search/hot').then(res => {
+        this.hotList = res.result.hots.splice(0, 9)
       })
     }
   }
