@@ -1,10 +1,17 @@
 const path = require('path')
+
+function resolve(dir) {
+    return path.resolve(__dirname, dir)
+}
+
 module.exports = {
     configureWebpack: {
         resolve: {
             alias: {
-                components: path.resolve(__dirname, 'src/components'),
-                common: path.resolve(__dirname, 'src/common')
+                components: resolve('src/components'),
+                views: resolve('src/views'),
+                api: resolve('src/api'),
+                common: resolve('src/common')
             }
         }
     }
